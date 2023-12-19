@@ -1,0 +1,16 @@
+### Pod apresenta status "CrashLoopBackOff".
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: srvubnt
+  name: srvubnt
+spec:
+  containers:
+  - image: ubuntu
+    name: srvubnt
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
