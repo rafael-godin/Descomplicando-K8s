@@ -1,0 +1,37 @@
+# Deplyment spec
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-deploy
+  name: nginx-deploy
+  namespace: biju
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: nginx-deploy
+# Deployment update strategy
+#
+  strategy:
+    type: Recreate
+# Pods spec
+#
+  template:
+    metadata:
+      labels:
+        app: nginx-deploy
+# Container spec
+#
+    spec:
+      containers:
+      - image: nginx:1.14.0
+        name: nginx # Container's name
+        resources:
+          limits:
+            cpu: "1"
+            memory: "256Mi"
+          requests:
+            cpu: "0.5"
+            memory: "64Mi"

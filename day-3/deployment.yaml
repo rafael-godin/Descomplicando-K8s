@@ -1,0 +1,33 @@
+# Deplyment spec
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-deplyment
+  name: nginx-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-deployment
+  strategy: {}
+# Pods spec
+#
+  template:
+    metadata:
+      labels:
+        app: nginx-deployment
+# Container spec
+#
+    spec:
+      containers:
+      - image: nginx
+        name: nginx # Container's name
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: "256Mi"
+          requests:
+            cpu: "0.3"
+            memory: "64Mi"

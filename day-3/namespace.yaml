@@ -1,0 +1,8 @@
+# Namespace criada com --dry-run
+#
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: biju
+spec: {}
+status: {}
