@@ -4,30 +4,34 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: nginx-deploy
-  name: nginx-deploy
+    app: nginx-deployment
+  name: nginx-deployment
   namespace: biju
 spec:
-  replicas: 10
+  replicas: 24
+  revisionHistoryLimit: 5
   selector:
     matchLabels:
-      app: nginx-deploy
+      app: nginx-deployment
 # Deployment update strategy
 #
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
 # Pods spec
 #
   template:
     metadata:
       labels:
-        app: nginx-deploy
+        app: nginx-deployment
 # Container spec
 #
     spec:
       containers:
-      - image: nginx:1.14.0
-        name: nginx # Container's name
+      - image: nginx:1.15.0
+        name: pod-nginx # Container's name
         resources:
           limits:
             cpu: "1"
