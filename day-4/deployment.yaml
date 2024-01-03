@@ -19,12 +19,42 @@ spec:
 # Container spec
     spec:
       containers:
-      - image: nginx:1.16.0
+      - image: nginx:latest
         name: nginx
         resources:
           limits:
-            cpu: "1"
-            memory: "256Mi"
-          requests:
             cpu: "0.5"
             memory: "128Mi"
+          requests:
+            cpu: "0.3"
+            memory: "64Mi"
+        livenessProbe:
+          #tcpSocket:
+          #port: 80
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          exec:
+            command:
+            - curl
+            - -f
+            - http://localhost:80/
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        startupProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+

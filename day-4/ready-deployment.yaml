@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: readypod
+  name: readypod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: readypod
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: readypod
+    spec:
+      containers:
+      - image: ubuntu:latest
+        name: ubuntu
+        resources: {}
+        readinessProbe:
+          exec:
+            command:
+            - cat /proc/issue
+          failureThreshold: 3
+          successThreshold: 1
